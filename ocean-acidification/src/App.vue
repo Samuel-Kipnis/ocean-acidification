@@ -1,5 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import Slider from 'primevue/slider';
+import InputText from 'primevue/slider';
+import { ref } from 'vue';
+
 const reg_animals = [{
     reg_staghorn_coral: 21,
     reg_boulder_star_coral: 28,
@@ -30,22 +33,21 @@ const reg_conditions = [{
     red_lionfish_invasive: false,
     crown_of_thorns_invasive: false
 }]
-const animals = ref([{
-    staghorn_coral: ref(21),
-    boulder_star_coral: ref(28),
-    algae: ref(27),
-    long_spined_urchin: ref(1160),
-    sponge: ref(11),
-    queen_angelfish: ref(540),
-    nassau_grouper: ref(48),
-    hawksbill_sea_turtle: ref(25),
-    spotlight_parrotfish: ref(825),
-    yellowtail_snapper: ref(240),
-    red_lionfish: ref(0),
-    crown_of_thorns_starfish: ref(0)
-}])
-
-const conditions = ref([{
+let animals = [{
+    staghorn_coral: 21,
+    boulder_star_coral: 28,
+    algae: 27,
+    long_spined_urchin: 1160,
+    sponge: 11,
+    queen_angelfish: 540,
+    nassau_grouper: 48,
+    hawksbill_sea_turtle: 25,
+    spotlight_parrotfish: 825,
+    yellowtail_snapper: 240,
+    red_lionfish: 0,
+    crown_of_thorns_starfish: 0
+}]
+let conditions = [{
     storm_severity: 20,
     ocean_temp: 27,
     ocean_ph:8.1,
@@ -60,21 +62,24 @@ const conditions = ref([{
     sea_urchin_infection: 0,
     red_lionfish_invasive: false,
     crown_of_thorns_invasive: false
-}])
+}]
 function calculate_animal(condition, reg_condition, animal, reg_animal){
     const condition_difference = condition-reg_condition
+    let result
     if (condition_difference<0){
-        animal = reg_animal*((condition_difference/100)+1)
+        result = reg_animal * ((condition_difference/100)+1)
     }
     else{
-        animal = reg_animal*(condition_difference/100)
+        result = reg_animal * (condition_difference/100)
     }
-    return animal
+    return result
 }
-calculate_animal(30,reg_conditions.storm_severity,animals.algae,reg_animals.algae)
-console.log(animals.algae)
+// animals[0].algae = calculate_animal(30,reg_conditions[0].storm_severity,animals[0].algae,reg_animals[0].reg_algae)
+// console.log(animals[0].algae)
+console.log(conditions[0].storm_severity)
 </script>
 <template>
-{{ animals.algae }}
+    <InputText v-model.number="conditions[0].storm_severity" />
+    <Slider v-model="conditions[0].storm_severity" />
 
 </template>
