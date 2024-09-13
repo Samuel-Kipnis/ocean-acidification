@@ -79,7 +79,9 @@ function calculate_animal(condition, reg_condition, animal, reg_animal){
 console.log(conditions[0].storm_severity)
 </script>
 <template>
-    <InputText v-model.number="conditions[0].storm_severity" />
-    <Slider v-model="conditions[0].storm_severity" />
+    <div class="slider">
+        <InputText v-model.number="conditions[0].storm_severity" />
+        <Slider v-model="conditions[0].storm_severity" />
+    </div>
 
 </template>
